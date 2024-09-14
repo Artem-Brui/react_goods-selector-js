@@ -15,6 +15,10 @@ export const goods = [
   'Garlic',
 ];
 
+const goodsForRender = goods.map((good, index) => {
+  return { id: index + 1, product: good };
+});
+
 export const App = () => {
   const [selectedGood, setSelectedGood] = useState('Jam');
 
@@ -74,15 +78,12 @@ export const App = () => {
 
       <table className="table">
         <tbody>
-          {goods.map(good => {
-            const filling = goodStyles(good);
+          {goodsForRender.map(good => {
+            const { id, product } = good;
+            const filling = goodStyles(product);
 
             return (
-              <tr
-                data-cy="Good"
-                key={goods.indexOf(good)}
-                className={filling.trClass}
-              >
+              <tr data-cy="Good" key={id} className={filling.trClass}>
                 <td>
                   <button
                     onClick={handleButtonClick}
@@ -95,7 +96,7 @@ export const App = () => {
                 </td>
 
                 <td data-cy="GoodTitle" className={filling.goodCellClass}>
-                  {good}
+                  {product}
                 </td>
               </tr>
             );
